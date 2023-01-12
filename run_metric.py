@@ -218,11 +218,11 @@ def compute_stochas(args):
 
     for key in dict_all:
         if args.age == 'Y':
-            with open("./save_exp/{}/{}_all_{}_Y.json".format(args.data, key, args.model), "w") as fp:
+            with open("./save_exp/{}/{}_all_{}_Y.json".format(args.data, key, args.model), "w+") as fp:
                 json.dump(dict_all[key], fp)
         else:
             with open(
-                    "./save_exp/{}/{}_all_{}.json".format(args.data, key, args.model), "w") as fp:
+                    "./save_exp/{}/{}_all_{}.json".format(args.data, key, args.model), "w+") as fp:
                 json.dump(dict_all[key], fp)
 
 
@@ -275,10 +275,10 @@ def compute_static(args):
 
     for key in dict:
         if args.age == 'Y':
-            with open("./save_exp/{}/{}_all_{}_static_Y.json".format(args.data, key, args.model), "w") as fp:
+            with open("./save_exp/{}/{}_all_{}_static_Y.json".format(args.data, key, args.model), "w+") as fp:
                 json.dump(dict[key], fp)
         else:
-            with open("./save_exp/{}/{}_all_{}_static.json".format(args.data, key, args.model), "w") as fp:
+            with open("./save_exp/{}/{}_all_{}_static.json".format(args.data, key, args.model), "w+") as fp:
                 json.dump(dict[key], fp)
 
 
@@ -342,9 +342,9 @@ def compute_exp_matrix(args):
     #     GG_target_stochas = GG_F_mask(E_system, E_target, E_collect, user_label, item_label, indicator)[3]
     #     GG_system_stochas = GG_F_mask(E_system, E_target, E_collect, user_label, item_label, indicator)[4]
     #
-    #     with open("./save_exp/{}/GG_MT_{}_{}.json".format(args.data, rand_tau, args.model), "w") as fp:
+    #     with open("./save_exp/{}/GG_MT_{}_{}.json".format(args.data, rand_tau, args.model), "w+") as fp:
     #         json.dump(np.array(GG_target_stochas).tolist(), fp)
-    #     with open("./save_exp/{}/GG_MS_{}_{}.json".format(args.data, rand_tau, args.model), "w") as fp:
+    #     with open("./save_exp/{}/GG_MS_{}_{}.json".format(args.data, rand_tau, args.model), "w+") as fp:
     #         json.dump(np.array(GG_system_stochas).tolist(), fp)
 
     # construct E_target
@@ -381,11 +381,11 @@ def compute_exp_matrix(args):
     print("GG_system_static:", GG_system_static)
     print("GG_collect:", GG_collect)
 
-    with open("./save_exp/{}/GG_MT_{}_static.json".format(args.data, args.model), "w") as fp:
+    with open("./save_exp/{}/GG_MT_{}_static.json".format(args.data, args.model), "w+") as fp:
         json.dump(np.array(GG_target_static).tolist(), fp)
-    with open("./save_exp/{}/GG_MS_{}_static.json".format(args.data, args.model), "w") as fp:
+    with open("./save_exp/{}/GG_MS_{}_static.json".format(args.data, args.model), "w+") as fp:
         json.dump(np.array(GG_system_static).tolist(), fp)
-    with open("./save_exp/{}/GG_collect_{}_static.json".format(args.data, args.model), "w") as fp:
+    with open("./save_exp/{}/GG_collect_{}_static.json".format(args.data, args.model), "w+") as fp:
         json.dump(np.array(GG_collect).tolist(), fp)
 
 
