@@ -17,7 +17,7 @@ import json
 
 def parser_args():
     parser = ArgumentParser(description="JMEF")
-    parser.add_argument('--data', type=str, default='ml-100k', choices=['ml-1m', 'ml-100k'],
+    parser.add_argument('--data', type=str, default='ml-1m', choices=['ml-1m', 'ml-100k'],
                         help="File path for data")
     parser.add_argument('--gpu_id', type=int, default=0)
     # Seed
@@ -30,9 +30,9 @@ def parser_args():
     parser.add_argument('--r_ep', type=int, default=1)
     parser.add_argument('--norm', type=str, default='N')
     parser.add_argument('--coll', type=str, default='Y')
-    parser.add_argument('--age', type=str, default='N')
+    parser.add_argument('--age', type=str, default='Y')
 
-    parser.add_argument('--conduct', type=str, default='st')
+    parser.add_argument('--conduct', type=str, default='sh')
     return parser.parse_args()
 
 
@@ -119,7 +119,7 @@ def eval_function_static(save_df, user_label, item_label, matrix_label, args):
     # construct E_system
     user_size = E_target.shape[0]
 
-    # construct E_collect
+    # construct E_collect (collectiion of exposures?)
     if args.coll == 'Y':
         E_collect = np.ones((E_target.shape[0], E_target.shape[1])) * E_target.mean()
     else:
@@ -134,9 +134,9 @@ def eval_function_static(save_df, user_label, item_label, matrix_label, args):
     for i in range(user_size):
         E_system[i][top_item_id[i]] = exp_vector
 
-    # print("E_target:", E_target.sum())
-    # print("E_system:", E_system.sum())
-    # print("E_collect:", E_collect.sum())
+    print("E_target:", E_target.sum())
+    print("E_system:", E_system.sum())
+    print("E_collect:", E_collect.sum())
 
     E_system = torch.from_numpy(E_system)
     E_target = torch.from_numpy(E_target)
@@ -423,9 +423,10 @@ if __name__ == '__main__':
     print("item_label:", item_label[0])
 
     # matrix_label = torch.from_numpy(matrix_label.todense()).float().to(args.device)
-    matrix_label = np.array(matrix_label.todense())
+    matrix_label = np.array(matrix_label.todense()) #rating matrix for matrix factorization, user-item relevance matrix Y
     # print("matrix_label:", matrix_label, type(matrix_label))
 
+    #??
     print("norm:", args.norm)
     print("coll:", args.coll)
     print("model:", args.model)
